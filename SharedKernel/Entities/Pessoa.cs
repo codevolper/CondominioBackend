@@ -1,12 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharedKernel.Enums;
 
-namespace SharedKernel.Entities
+namespace SharedKernel.Entities;
+
+public abstract class Pessoa
 {
-    internal class Pessoa
-    {
-    }
+    public Guid Id { get; set; }
+
+    public required string Nome { get; set; }
+
+    public required string Cpf { get; set; }
+
+    public required string Email { get; set; }
+
+    public required string Telefone { get; set; }
+
+    public required TipoUsuario TipoUsuario { get; set; }
+    
+    public Endereco? Endereco { get; set; }
 }
