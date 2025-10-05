@@ -1,4 +1,6 @@
-﻿namespace GerenciaUsuario.Application.UseCases;
+﻿using SharedKernel.Enums;
+
+namespace GerenciaUsuario.Application.UseCases;
 
 public class CriarUsuarioCommand
 {
@@ -7,5 +9,5 @@ public class CriarUsuarioCommand
     public string Senha { get; set; } = string.Empty;
     public string Telefone { get; set; } = string.Empty;
     public  required string CPF { get; set; }
-    public  required string Perfil { get; set; }  
+    public  required TipoUsuario Perfil { get; set; }  
 }

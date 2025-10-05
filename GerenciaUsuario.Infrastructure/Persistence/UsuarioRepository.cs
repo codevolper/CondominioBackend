@@ -5,8 +5,16 @@ namespace GerenciaUsuario.Infrastructure.Persistence;
 
 public class UsuarioRepository : IUsuarioRepository
 {
-    public Task<Usuario> AdicionarUsuarioAsync(Usuario usuario)
+    public readonly AppDbContext _context;
+    
+    public UsuarioRepository(AppDbContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
+    }
+
+    public async Task AdicionarUsuarioAsync(Usuario usuario)
+    {
+        await _context.Usuarios.AddAsync(usuario);
+        await _context.SaveChangesAsync();
     }
 }

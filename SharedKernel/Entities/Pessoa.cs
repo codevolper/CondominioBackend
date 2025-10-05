@@ -8,9 +8,10 @@ public abstract class Pessoa
 
     public required string Nome { get; set; }
 
-    public required string Cpf { get; set; }    
+    public required string CPF { get; set; }    
 
-    public required string Telefone { get; set; }    
-    
-    public Endereco? Endereco { get; set; }
+    public required string Telefone { get; set; }
+
+    //Navigation property
+    public Endereco Endereco { get; set; } = null!;
 }

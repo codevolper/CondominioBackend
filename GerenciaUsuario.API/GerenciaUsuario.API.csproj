@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CondominioBackend.ServiceDefaults\CondominioBackend.ServiceDefaults.csproj" />
     <ProjectReference Include="..\GerenciaUsuario.Application\GerenciaUsuario.Application.csproj" />
+    <ProjectReference Include="..\GerenciaUsuario.Infrastructure\GerenciaUsuario.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
