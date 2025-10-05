@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver2022
+    ports:
+      - "1433:1433"
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Gr@vidade2025!"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+      - ./sql:/scripts
+    command: >
+      bash -c "
+        /opt/mssql/bin/sqlservr & 
+        sleep 20 && 
+        /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Gr@vidade2025! -i /sql/cadastro_usuario.sql "
+
+    restart: unless-stopped
+
+volumes:
+  sqlserver_data:
