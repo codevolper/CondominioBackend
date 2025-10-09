@@ -1,4 +1,4 @@
-﻿using GerenciaUsuario.Domain.Interfaces;
+﻿using GerenciaUsuario.Application.Interfaces;
 using SharedKernel.Entities;
 
 namespace GerenciaUsuario.Infrastructure.Persistence;

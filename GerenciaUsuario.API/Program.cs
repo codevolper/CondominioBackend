@@ -1,6 +1,6 @@
 using GerenciaUsuario.Application.Interfaces;
-using GerenciaUsuario.Application.UseCases;
-using GerenciaUsuario.Domain.Interfaces;
+using GerenciaUsuario.API.Mappings;
+using GerenciaUsuario.Application.Services;
 using GerenciaUsuario.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,8 +21,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 
 //Injeção de dependência
-builder.Services.AddScoped<ICriarUsuarioHandler, CriarUsuarioHandler>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 

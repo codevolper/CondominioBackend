@@ -1,41 +1,55 @@
+using AutoMapper;
 using GerenciaUsuario.API.Models;
+using GerenciaUsuario.Application.DataObjects;
 using GerenciaUsuario.Application.Interfaces;
-using GerenciaUsuario.Application.UseCases;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection.Metadata;
 
 namespace GerenciaUsuario.API.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class GerenciarUsuarioController : ControllerBase
-{  
-    private readonly ICriarUsuarioHandler _handler;
+{
+    private readonly IMapper _mapper;
+    private readonly IUsuarioService _usuarioService;
     private readonly ILogger<GerenciarUsuarioController> _logger;
 
-    public GerenciarUsuarioController(ICriarUsuarioHandler hanlder, ILogger<GerenciarUsuarioController> logger)
-    {
-        _handler = hanlder;
+    public GerenciarUsuarioController(IUsuarioService usuarioService, IMapper mapper, ILogger<GerenciarUsuarioController> logger)
+    {   
+        _usuarioService = usuarioService;
+        _mapper = mapper;
         _logger = logger;
     }
 
     [HttpPost]
-    public async Task<IActionResult> CriarUsuario([FromBody] CriarUsuarioRequest request)
+    public async Task<IActionResult> CriarUsuario([FromBody] UsuarioRequest request)
     {
         if (request == null)
-            return BadRequest("Dados inválidos.");
+            return BadRequest("Dados inválidos.");       
 
-        var command = new CriarUsuarioCommand
-        {
-            Nome = request.Nome,
-            Email = request.Email,
-            Senha = request.Senha,
-            Telefone = request.Telefone,
-            CPF = request.CPF,
-            Perfil = request.Perfil
-        };
+        // Aturalizar para estrutura de mapeamento.
+        //var usuarioDTO = new Application.DataObjects.UsuarioDTO
+        //{
+        //    Nome = request.Nome,
+        //    Email = request.Email,
+        //    Senha = request.Senha,
+        //    Telefone = request.Telefone,
+        //    CPF = request.CPF,
+        //    TipoUsuario = request.TipoUsuario,
+        //    Endereco = new Application.DataObjects.EnderecoDTO
+        //    {
+        //        Logradouro = request.Endereco.Logradouro,
+        //        Numero = request.Endereco.Numero,
+        //        Complemento = request.Endereco.Complemento,
+        //        Bairro = request.Endereco.Bairro,
+        //        Cidade = request.Endereco.Cidade,
+        //        Estado = request.Endereco.Estado,
+        //        Cep = request.Endereco.Cep
+        //    }
+        //};
 
-        var resultado = await _handler.HandleAsync(command);
+        var data = _mapper.Map<UsuarioDTO>(request);
+        var resultado = await _usuarioService.CriarUsuarioAsync(data);
 
         if (!resultado.Sucesso)
             return BadRequest(resultado.Erros);
