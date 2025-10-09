@@ -1,4 +1,4 @@
-﻿namespace GerenciaUsuario.Application.UseCases;
+﻿namespace GerenciaUsuario.Application.Services;
 
 public class CriarUsuarioResultado
 {

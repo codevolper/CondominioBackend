@@ -1,19 +1,19 @@
-﻿using GerenciaUsuario.Application.Interfaces;
-using GerenciaUsuario.Domain.Interfaces;
+﻿using GerenciaUsuario.Application.DataObjects;
+using GerenciaUsuario.Application.Interfaces;
 using SharedKernel.Entities;
 
-namespace GerenciaUsuario.Application.UseCases;
+namespace GerenciaUsuario.Application.Services;
 
-public class CriarUsuarioHandler : ICriarUsuarioHandler
+public class UsuarioService : IUsuarioService
 {
     private readonly IUsuarioRepository _repository;
 
-    public CriarUsuarioHandler(IUsuarioRepository repository)
+    public UsuarioService(IUsuarioRepository repository)
     {
         _repository = repository;
     }
 
-    public Task<CriarUsuarioResultado> HandleAsync(CriarUsuarioCommand request)
+    public Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioDTO request)
     {
         var usuario = new Usuario
         {
@@ -23,7 +23,7 @@ public class CriarUsuarioHandler : ICriarUsuarioHandler
             Senha = request.Senha,
             Telefone = request.Telefone,
             CPF = request.CPF,
-            TipoUsuario  = request.Perfil
+            TipoUsuario  = request.TipoUsuario
         };
 
         _repository.AdicionarUsuarioAsync(usuario);

@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GerenciaUsuario.Domain\GerenciaUsuario.Domain.csproj" />
+    <ProjectReference Include="..\GerenciaUsuario.Application\GerenciaUsuario.Application.csproj" />
   </ItemGroup>
 
 </Project>

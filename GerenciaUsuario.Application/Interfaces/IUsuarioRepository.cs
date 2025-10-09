@@ -1,6 +1,6 @@
 ﻿using SharedKernel.Entities;
 
-namespace GerenciaUsuario.Domain.Interfaces;
+namespace GerenciaUsuario.Application.Interfaces;
 
 public interface IUsuarioRepository
 {
