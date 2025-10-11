@@ -26,7 +26,7 @@ namespace GerenciaUsuario.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pessoas", x => x.Id);
+                    table.PrimaryKey("PK_Pessoa", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -46,9 +46,9 @@ namespace GerenciaUsuario.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Enderecos", x => x.Id);
+                    table.PrimaryKey("PK_Endereco", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Enderecos_Pessoas_PessoaId",
+                        name: "FK_Endereco_Pessoa_PessoaId",
                         column: x => x.PessoaId,
                         principalTable: "Pessoa",
                         principalColumn: "Id",
@@ -56,7 +56,7 @@ namespace GerenciaUsuario.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Enderecos_PessoaId",
+                name: "IX_Endereco_PessoaId",
                 table: "Endereco",
                 column: "PessoaId",
                 unique: true);

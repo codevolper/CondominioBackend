@@ -130,15 +130,6 @@ namespace GerenciaUsuario.Infrastructure.Migrations
                     b.Navigation("Pessoa");
                 });
 
-            modelBuilder.Entity("SharedKernel.Entities.Usuario", b =>
-                {
-                    b.HasOne("SharedKernel.Entities.Pessoa", null)
-                        .WithOne()
-                        .HasForeignKey("SharedKernel.Entities.Usuario", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("SharedKernel.Entities.Pessoa", b =>
                 {
                     b.Navigation("Endereco")
