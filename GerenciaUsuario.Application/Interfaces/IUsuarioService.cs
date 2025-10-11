@@ -5,5 +5,5 @@ namespace GerenciaUsuario.Application.Interfaces;
 
 public interface IUsuarioService
 {
-    Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioDTO request);
+    Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request);
 }

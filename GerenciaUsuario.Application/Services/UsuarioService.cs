@@ -1,19 +1,22 @@
-﻿using GerenciaUsuario.Application.DataObjects;
+﻿using AutoMapper;
 using GerenciaUsuario.Application.Interfaces;
+using GerenciaUsuario.Application.DataObjects;
 using SharedKernel.Entities;
 
 namespace GerenciaUsuario.Application.Services;
 
 public class UsuarioService : IUsuarioService
 {
+    private readonly IMapper _mapper;
     private readonly IUsuarioRepository _repository;
 
-    public UsuarioService(IUsuarioRepository repository)
+    public UsuarioService(IMapper mapper, IUsuarioRepository repository)
     {
+        _mapper = mapper;
         _repository = repository;
     }
 
-    public Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioDTO request)
+    public async Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request)
     {
         var usuario = new Usuario
         {
@@ -23,7 +26,7 @@ public class UsuarioService : IUsuarioService
             Senha = request.Senha,
             Telefone = request.Telefone,
             CPF = request.CPF,
-            TipoUsuario  = request.TipoUsuario,
+            TipoUsuario = request.TipoUsuario,
             Endereco = new Endereco
             {
                 Logradouro = request.Endereco?.Logradouro ?? string.Empty,
@@ -36,17 +39,14 @@ public class UsuarioService : IUsuarioService
             }
         };
 
-        _repository.AdicionarUsuarioAsync(usuario);
+        var usuariov = _mapper.Map<Usuario>(request);
 
-        // Lógica para criar o usuário (validação, persistência, etc.)
-        // Aqui você pode chamar repositórios, serviços, etc.
-        // Exemplo simplificado de resultado
-        var resultado = new CriarUsuarioResultado
+        var rowsAffected = await _repository.AdicionarUsuarioAsync(usuario);       
+        return await Task.FromResult(new CriarUsuarioResultado
         {
-            Sucesso = true,
+            Sucesso = rowsAffected > 0 ? true : false,
             UsuarioId = Guid.NewGuid(),
             Erros = new List<string>()
-        };
-        return Task.FromResult(resultado);
+        });
     }
 }
