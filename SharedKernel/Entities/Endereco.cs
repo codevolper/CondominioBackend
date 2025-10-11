@@ -14,5 +14,6 @@ public class Endereco
     // Foreign key to Pessoa
     public Guid PessoaId { get; set; }
 
+    // Navigation property
     public Pessoa Pessoa { get; set; } = null!;
 }

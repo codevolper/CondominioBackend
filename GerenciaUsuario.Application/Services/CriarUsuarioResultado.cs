@@ -6,11 +6,8 @@ public class CriarUsuarioResultado
 
     public bool Sucesso { get; set; }
         
-    public List<string> Erros { get; set; }
+    public List<string> Erros { get; set; }        
 
-    //public static CriarUsuarioResultado Sucesso(Guid id) =>
-    //    new() { Sucesso = true, UsuarioId = id };
-
-    //public static CriarUsuarioResultado Falha(params string[] erros) =>
-    //    new() { Sucesso = false, Erros = erros.ToList() };
+    public static CriarUsuarioResultado Falha(params string[] erros) =>
+        new() { Sucesso = false, Erros = erros.ToList() };
 }

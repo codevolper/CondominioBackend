@@ -22,10 +22,11 @@ public class GerenciarUsuarioController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(UsuarioRequest), StatusCodes.Status201Created)]
     public async Task<IActionResult> CriarUsuario([FromBody] UsuarioRequest request)
     {
         if (request == null)
-            return BadRequest("Dados inválidos.");     
+            return BadRequest(StatusCode(400));
 
         var data = _mapper.Map<UsuarioDTO>(request);
         var resultado = await _usuarioService.CriarUsuarioAsync(data);
