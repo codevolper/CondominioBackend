@@ -14,7 +14,14 @@ public class UsuarioRepository : IUsuarioRepository
 
     public async Task AdicionarUsuarioAsync(Usuario usuario)
     {
-        await _context.Usuarios.AddAsync(usuario);
-        await _context.SaveChangesAsync();
+        try
+        {
+            await _context.Pessoa.AddAsync(usuario);
+            await _context.SaveChangesAsync();
+        }
+        catch (Exception)
+        {
+            throw;
+        }        
     }
 }
