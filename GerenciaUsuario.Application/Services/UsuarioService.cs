@@ -23,7 +23,17 @@ public class UsuarioService : IUsuarioService
             Senha = request.Senha,
             Telefone = request.Telefone,
             CPF = request.CPF,
-            TipoUsuario  = request.TipoUsuario
+            TipoUsuario  = request.TipoUsuario,
+            Endereco = new Endereco
+            {
+                Logradouro = request.Endereco?.Logradouro ?? string.Empty,
+                Numero = request.Endereco?.Numero ?? string.Empty,
+                Complemento = request.Endereco?.Complemento ?? string.Empty,
+                Bairro = request.Endereco?.Bairro ?? string.Empty,
+                Cidade = request.Endereco?.Cidade ?? string.Empty,
+                Estado = request.Endereco?.Estado ?? string.Empty,
+                Cep = request.Endereco?.Cep ?? string.Empty
+            }
         };
 
         _repository.AdicionarUsuarioAsync(usuario);

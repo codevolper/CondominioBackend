@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciaUsuario.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251005061156_Inicial")]
+    [Migration("20251011171954_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -131,15 +131,6 @@ namespace GerenciaUsuario.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Pessoa");
-                });
-
-            modelBuilder.Entity("SharedKernel.Entities.Usuario", b =>
-                {
-                    b.HasOne("SharedKernel.Entities.Pessoa", null)
-                        .WithOne()
-                        .HasForeignKey("SharedKernel.Entities.Usuario", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("SharedKernel.Entities.Pessoa", b =>
