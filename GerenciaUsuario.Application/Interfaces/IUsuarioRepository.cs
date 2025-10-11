@@ -4,5 +4,5 @@ namespace GerenciaUsuario.Application.Interfaces;
 
 public interface IUsuarioRepository
 {
-    Task AdicionarUsuarioAsync(Usuario pessoa);
+    Task<int> AdicionarUsuarioAsync(Usuario pessoa);
 }

@@ -1,7 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
-using GerenciaUsuario.API.Mappings;
 using GerenciaUsuario.Application.Interfaces;
+using GerenciaUsuario.Application.Mappings;
 using GerenciaUsuario.Application.Services;
 using GerenciaUsuario.Application.Validators;
 using GerenciaUsuario.Infrastructure.Persistence;
@@ -19,7 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //AutoMapper
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
+//builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 //Entity Framework
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -31,6 +33,8 @@ builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
 //Fluent Validation
 builder.Services.AddValidatorsFromAssemblyContaining<UsuarioRequestValidator>();
+builder.Services.AddFluentValidationAutoValidation();
+
 
 var app = builder.Build();
 

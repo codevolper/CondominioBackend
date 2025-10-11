@@ -12,9 +12,9 @@ public class UsuarioRepository : IUsuarioRepository
         _context = context;
     }
 
-    public async Task AdicionarUsuarioAsync(Usuario usuario)
+    public async Task<int> AdicionarUsuarioAsync(Usuario usuario)
     {
         await _context.Pessoa.AddAsync(usuario);
-        await _context.SaveChangesAsync();
+        return await _context.SaveChangesAsync();
     }
 }

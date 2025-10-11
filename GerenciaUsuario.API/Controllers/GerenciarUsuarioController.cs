@@ -1,7 +1,5 @@
-using AutoMapper;
-using GerenciaUsuario.API.Models;
-using GerenciaUsuario.Application.DataObjects;
 using GerenciaUsuario.Application.Interfaces;
+using GerenciaUsuario.Application.DataObjects;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GerenciaUsuario.API.Controllers;
@@ -9,14 +7,12 @@ namespace GerenciaUsuario.API.Controllers;
 [ApiController]
 [Route("[controller]")]
 public class GerenciarUsuarioController : ControllerBase
-{
-    private readonly IMapper _mapper;
+{  
     private readonly IUsuarioService _usuarioService;
     private readonly ILogger<GerenciarUsuarioController> _logger;
 
-    public GerenciarUsuarioController(IUsuarioService usuarioService, IMapper mapper, ILogger<GerenciarUsuarioController> logger)
-    {
-        _mapper = mapper;
+    public GerenciarUsuarioController(IUsuarioService usuarioService, ILogger<GerenciarUsuarioController> logger)
+    {        
         _logger = logger;
         _usuarioService = usuarioService;
     }
@@ -27,9 +23,8 @@ public class GerenciarUsuarioController : ControllerBase
     {
         if (request == null)
             return BadRequest(StatusCode(400));
-
-        var data = _mapper.Map<UsuarioDTO>(request);
-        var resultado = await _usuarioService.CriarUsuarioAsync(data);
+       
+        var resultado = await _usuarioService.CriarUsuarioAsync(request);
 
         if (!resultado.Sucesso)
             return BadRequest(resultado.Erros);
