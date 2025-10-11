@@ -1,6 +1,9 @@
-using GerenciaUsuario.Application.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using GerenciaUsuario.API.Mappings;
+using GerenciaUsuario.Application.Interfaces;
 using GerenciaUsuario.Application.Services;
+using GerenciaUsuario.Application.Validators;
 using GerenciaUsuario.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,16 +18,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 //Entity Framework
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
 
 //Injeção de dependência
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+//Fluent Validation
+builder.Services.AddValidatorsFromAssemblyContaining<UsuarioRequestValidator>();
 
 var app = builder.Build();
 

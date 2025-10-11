@@ -37,6 +37,7 @@ public class UsuarioService : IUsuarioService
         };
 
         _repository.AdicionarUsuarioAsync(usuario);
+
         // Lógica para criar o usuário (validação, persistência, etc.)
         // Aqui você pode chamar repositórios, serviços, etc.
         // Exemplo simplificado de resultado
