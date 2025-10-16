@@ -31,4 +31,15 @@ public class GerenciarUsuarioController : ControllerBase
 
         return CreatedAtAction(nameof(CriarUsuario), new { id = resultado.UsuarioId }, resultado);
     }
+    
+    [HttpGet("ConsultarUsuarioPorCPF")]
+    public async Task<IActionResult> ConsultarUsuarioPorCPF([FromQuery] string cpf)
+    {
+        if (string.IsNullOrWhiteSpace(cpf))
+            return BadRequest("CPF inválido.");
+        
+        var resultado = await _usuarioService.ConsultarUsuarioPorCPFAsync(cpf);
+
+        return resultado != null ? Ok(resultado) : NotFound();
+    }
 }
