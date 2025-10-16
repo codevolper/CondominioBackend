@@ -17,29 +17,8 @@ public class UsuarioService : IUsuarioService
     }
 
     public async Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request)
-    {
-        var usuario = new Usuario
-        {
-            Id = Guid.NewGuid(),
-            Nome = request.Nome,
-            Email = request.Email,
-            Senha = request.Senha,
-            Telefone = request.Telefone,
-            CPF = request.CPF,
-            TipoUsuario = request.TipoUsuario,
-            Endereco = new Endereco
-            {
-                Logradouro = request.Endereco?.Logradouro ?? string.Empty,
-                Numero = request.Endereco?.Numero ?? string.Empty,
-                Complemento = request.Endereco?.Complemento ?? string.Empty,
-                Bairro = request.Endereco?.Bairro ?? string.Empty,
-                Cidade = request.Endereco?.Cidade ?? string.Empty,
-                Estado = request.Endereco?.Estado ?? string.Empty,
-                Cep = request.Endereco?.Cep ?? string.Empty
-            }
-        };
-
-        var usuariov = _mapper.Map<Usuario>(request);
+    {      
+        var usuario = _mapper.Map<Usuario>(request);
 
         var rowsAffected = await _repository.AdicionarUsuarioAsync(usuario);       
         return await Task.FromResult(new CriarUsuarioResultado
