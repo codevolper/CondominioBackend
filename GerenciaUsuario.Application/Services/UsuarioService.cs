@@ -14,7 +14,7 @@ public class UsuarioService : IUsuarioService
     {
         _mapper = mapper;
         _repository = repository;
-    }
+    }   
 
     public async Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request)
     {      
@@ -27,5 +27,11 @@ public class UsuarioService : IUsuarioService
             UsuarioId = Guid.NewGuid(),
             Erros = new List<string>()
         });
+    }
+
+    public async Task<UsuarioRequest> ConsultarUsuarioPorCPFAsync(string cpf)
+    {
+        var usuario = await _repository.ObterUsuarioPorCPF(cpf);
+        return _mapper.Map<UsuarioRequest>(usuario);
     }
 }

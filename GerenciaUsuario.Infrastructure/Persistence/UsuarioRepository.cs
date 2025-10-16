@@ -17,4 +17,9 @@ public class UsuarioRepository : IUsuarioRepository
         await _context.Pessoa.AddAsync(usuario);
         return await _context.SaveChangesAsync();
     }
+
+    public async Task<Usuario> ObterUsuarioPorCPF(string cpf)
+    {
+        return (Usuario)await _context.Pessoa.FindAsync(cpf);
+    }
 }
