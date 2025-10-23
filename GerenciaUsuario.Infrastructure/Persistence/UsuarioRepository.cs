@@ -12,14 +12,14 @@ public class UsuarioRepository : IUsuarioRepository
         _context = context;
     }
 
-    public async Task<int> AdicionarUsuarioAsync(Usuario usuario)
+    public async Task<int> AdicionarUsuarioAsync(Usuario usuario, CancellationToken token)
     {
-        await _context.Pessoa.AddAsync(usuario);
+        await _context.Pessoa.AddAsync(usuario, token);
         return await _context.SaveChangesAsync();
     }
 
-    public async Task<Usuario> ObterUsuarioPorCPF(string cpf)
+    public async Task<Usuario> ObterUsuarioPorCPF(string cpf, CancellationToken token)
     {
-        return (Usuario)await _context.Pessoa.FindAsync(cpf);
+        return (Usuario)await _context.Pessoa.FindAsync(cpf, token);
     }
 }
