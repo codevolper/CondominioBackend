@@ -1,4 +1,5 @@
 ﻿using GerenciaUsuario.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using SharedKernel.Entities;
 
 namespace GerenciaUsuario.Infrastructure.Persistence;
@@ -20,6 +21,8 @@ public class UsuarioRepository : IUsuarioRepository
 
     public async Task<Usuario> ObterUsuarioPorCPF(string cpf, CancellationToken token)
     {
-        return (Usuario)await _context.Pessoa.FindAsync(cpf, token);
+        return await _context.Pessoa.OfType<Usuario>()
+            .Include(p => p.Endereco)
+            .FirstOrDefaultAsync(p => p.CPF == cpf, token);
     }
 }
