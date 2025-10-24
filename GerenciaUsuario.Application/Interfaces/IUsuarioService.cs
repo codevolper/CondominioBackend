@@ -5,7 +5,7 @@ namespace GerenciaUsuario.Application.Interfaces;
 
 public interface IUsuarioService
 {
-    Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request);
+    Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request, CancellationToken token);
 
-    Task<UsuarioRequest> ConsultarUsuarioPorCPFAsync(string cpf);
+    Task<UsuarioRequest> ConsultarUsuarioPorCPFAsync(string cpf, CancellationToken token);
 }

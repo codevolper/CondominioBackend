@@ -16,11 +16,11 @@ public class UsuarioService : IUsuarioService
         _repository = repository;
     }   
 
-    public async Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request)
+    public async Task<CriarUsuarioResultado> CriarUsuarioAsync(UsuarioRequest request, CancellationToken token)
     {      
         var usuario = _mapper.Map<Usuario>(request);
 
-        var rowsAffected = await _repository.AdicionarUsuarioAsync(usuario);       
+        var rowsAffected = await _repository.AdicionarUsuarioAsync(usuario, token);       
         return await Task.FromResult(new CriarUsuarioResultado
         {
             Sucesso = rowsAffected > 0 ? true : false,
@@ -29,9 +29,9 @@ public class UsuarioService : IUsuarioService
         });
     }
 
-    public async Task<UsuarioRequest> ConsultarUsuarioPorCPFAsync(string cpf)
+    public async Task<UsuarioRequest> ConsultarUsuarioPorCPFAsync(string cpf, CancellationToken token)
     {
-        var usuario = await _repository.ObterUsuarioPorCPF(cpf);
+        var usuario = await _repository.ObterUsuarioPorCPF(cpf, token);
         return _mapper.Map<UsuarioRequest>(usuario);
     }
 }

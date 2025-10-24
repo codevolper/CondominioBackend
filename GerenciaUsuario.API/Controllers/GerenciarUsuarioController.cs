@@ -19,12 +19,12 @@ public class GerenciarUsuarioController : ControllerBase
 
     [HttpPost]
     [ProducesResponseType(typeof(UsuarioRequest), StatusCodes.Status201Created)]
-    public async Task<IActionResult> CriarUsuario([FromBody] UsuarioRequest request)
+    public async Task<IActionResult> CriarUsuario([FromBody] UsuarioRequest request, CancellationToken token)
     {
         if (request == null)
             return BadRequest(StatusCode(400));
        
-        var resultado = await _usuarioService.CriarUsuarioAsync(request);
+        var resultado = await _usuarioService.CriarUsuarioAsync(request, token);
 
         if (!resultado.Sucesso)
             return BadRequest(resultado.Erros);
@@ -33,12 +33,12 @@ public class GerenciarUsuarioController : ControllerBase
     }
     
     [HttpGet("ConsultarUsuarioPorCPF")]
-    public async Task<IActionResult> ConsultarUsuarioPorCPF([FromQuery] string cpf)
+    public async Task<IActionResult> ConsultarUsuarioPorCPF([FromQuery] string cpf, CancellationToken token)
     {
         if (string.IsNullOrWhiteSpace(cpf))
             return BadRequest("CPF inválido.");
         
-        var resultado = await _usuarioService.ConsultarUsuarioPorCPFAsync(cpf);
+        var resultado = await _usuarioService.ConsultarUsuarioPorCPFAsync(cpf, token);
 
         return resultado != null ? Ok(resultado) : NotFound();
     }
